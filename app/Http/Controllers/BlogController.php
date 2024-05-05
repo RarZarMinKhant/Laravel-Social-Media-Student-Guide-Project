@@ -18,10 +18,11 @@ class BlogController extends Controller
                         $query->where('slug', request()->category);
                     })
                 ->with('category')
+                ->orderBy('created_at','desc')
                 ->paginate(9)
                 ->withQueryString();
         } else {
-            $blogs = Blog::with('category')->paginate(9)->withQueryString();
+            $blogs = Blog::with('category')->orderBy('created_at','desc')->paginate(9)->withQueryString();
         }
         $categories = Category::get();
         return view('index',compact('blogs','categories'));
@@ -33,7 +34,7 @@ class BlogController extends Controller
 
     function store(BlogRequest $request){
         Blog::create($request->all());
-        return redirect()->route('blog.index')->with('message', 'Blog Create Success');
+        return redirect()->route('index')->with('message', 'Blog Create Success');
     }
 
     function show(Blog $blog){

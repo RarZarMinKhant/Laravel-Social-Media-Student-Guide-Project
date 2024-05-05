@@ -20,16 +20,21 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @forelse ($blogs as $blog)
                 <div class="col">
+                    <h5 class="card-title">{{ $blog->user->name }}</h5>
+                    <p class="card-title">{{ $blog->created_at->diffForHumans() }}</p>
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title">{{ $blog->title }}</h5>
                             <p class="card-text">{{ $blog->description }}</p>
-                            <button class="btn btn-warning">{{ $blog->category->name }}</button>
+                            <button class="btn btn-warning">{{ $blog->category?->name }}</button>
                         </div>
                         <div class="card-footer">
                             <a href="{{ route('blog.show', $blog->slug) }}" class="card-link">Read more</a>
-                            <a href="{{ route('blog.edit', $blog->id) }}" class="card-link">Edit</a>
-                            <a href="{{ route('blog.destroy', $blog->id) }}" class="card-link text-danger">Delete</a>
+                            @if (auth()->user()?->id == $blog->user_id)
+                                <a href="{{ route('blog.edit', $blog->id) }}" class="card-link">Edit</a>
+                                <a href="{{ route('blog.destroy', $blog->id) }}"
+                                    class="card-link text-danger">Delete</a>
+                            @endif
                         </div>
                     </div>
                 </div>

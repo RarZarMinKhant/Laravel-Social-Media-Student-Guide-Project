@@ -24,33 +24,10 @@ class User extends Authenticatable
         'password',
     ];
 
-
-    public function blog(){
-        // User ဘက်ကကြည့်
-        // one to one
-        // return $this->hasOne(Blog::class);
-
-
-        // User ဘက်ကကြည့်
-        // one to maney
-        return $this->hasMany(Blog::class);
-    }
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -58,5 +35,9 @@ class User extends Authenticatable
     public function getRouteKeyName()
     {
         return 'email';
+    }
+
+    public function blogs(){
+        return $this->hasMany(Blog::class);
     }
 }

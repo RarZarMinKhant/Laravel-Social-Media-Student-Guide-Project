@@ -23,7 +23,8 @@ class BlogRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'slug' => str_replace(' ', '-', strtolower($this->title))
+            'slug' => str_replace(' ', '-', strtolower($this->title)),
+            'user_id' => auth()->user() ? auth()->user()->id : null
         ]);
     }
 }

@@ -18,7 +18,7 @@
                 </li>
             </ul>
         </div>
-        <a href="">{{ auth()->user()?->name }}</a>
+        <a href="{{ route('profile.index') }}">{{ auth()->user()?->name }}</a>
         <a href="{{ route('blog.create') }}">
             <button>Create Blog</button>
         </a>
