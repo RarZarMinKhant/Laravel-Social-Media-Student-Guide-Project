@@ -30,7 +30,7 @@
                     <a class="text-black" href="{{ route('blog.create') }}">
                         <button>Create Blog</button>
                     </a>
-                    <a href="{{ route('profile.index') }}"><img
+                    <a href="{{ route('profile', auth()->user()?->username) }}"><img
                             src="https://icon2.cleanpng.com/20180523/wxj/kisspng-businessperson-computer-icons-avatar-clip-art-lattice-5b0508dc2ee812.2252011515270566041921.jpg"
                             class="w-10 h-10 rounded-full">
                     </a>

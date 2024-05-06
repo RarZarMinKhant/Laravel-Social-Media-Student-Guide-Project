@@ -19,10 +19,11 @@ class BlogController extends Controller
                     })
                 ->with('category')
                 ->orderBy('created_at','desc')
-                ->paginate(9)
-                ->withQueryString();
+                ->get();
+                // ->paginate(9)
+                // ->withQueryString();
         } else {
-            $blogs = Blog::with('category')->orderBy('created_at','desc')->paginate(9)->withQueryString();
+            $blogs = Blog::with('category')->orderBy('created_at','desc')->get();
         }
         $categories = Category::get();
         return view('index',compact('blogs','categories'));

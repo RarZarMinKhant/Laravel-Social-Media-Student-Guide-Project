@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -19,7 +20,7 @@ class RegisteredUserController extends Controller
     {
         return view('auth.register');
     }
-    
+
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
@@ -30,6 +31,7 @@ class RegisteredUserController extends Controller
 
         $user = User::create([
             'name' => $request->name,
+            'username' => str_replace(' ', '-', strtolower($request->name)) . Str::random(10),
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);

@@ -15,7 +15,7 @@ Route::controller(BlogController::class)->group(function(){
 });
 
 Route::controller(ProfileController::class)->group(function(){
-    Route::get('/profile','index')->name('profile.index');
+    Route::get('/profile/{user:username}','index')->name('profile');
 });
 
 // Route::get('/dashboard', function () {

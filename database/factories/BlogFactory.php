@@ -20,6 +20,7 @@ class BlogFactory extends Factory
             'title' => fake()->title(),
             'slug' => fake()->slug(),
             'category_id' => $this->faker->numberBetween(1, 15),
+            'user_id' => $this->faker->numberBetween(1, 30),
             'description' => fake()->sentence()
         ];
     }

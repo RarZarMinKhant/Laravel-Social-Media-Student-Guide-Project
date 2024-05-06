@@ -20,14 +20,14 @@
         @forelse ($blogs as $blog)
             <div class="bg-white p-8 shadow-md rounded-lg m-3">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center space-x-2">
+                    <a href="/profile/{{ $blog->user?->username }}" class="flex items-center space-x-2">
                         <img src="https://icon2.cleanpng.com/20180523/wxj/kisspng-businessperson-computer-icons-avatar-clip-art-lattice-5b0508dc2ee812.2252011515270566041921.jpg"
                             class="w-8 h-8 rounded-full">
                         <div>
-                            <p class="text-gray-800 font-semibold">{{ $blog->user->name }}</p>
+                            <p class="text-gray-800 font-semibold">{{ $blog->user?->name }}</p>
                             <p class="text-gray-500 text-sm">Posted {{ $blog->created_at->diffForHumans() }}</p>
                         </div>
-                    </div>
+                    </a>
                     <div class="text-gray-500 cursor-pointer">
                         <button class="hover:bg-gray-50 rounded-full p-1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -83,10 +83,10 @@
                 <h3>There is no data</h3>
             </div>
         @endforelse
-        <div class="row justify-content-center">
+        {{-- <div class="row justify-content-center">
             <div class="col-md-6">
                 {{ $blogs->links() }}
             </div>
-        </div>
+        </div> --}}
     </div>
 </x-master>
