@@ -43,11 +43,10 @@
                         </button>
                     </form>
                 @else
-                    <button
-                        class="rounded-lg bg-black py-2 px-4 text-center font-sans text-xs font-bold uppercase text-white"
-                        type="button">
+                    <a href="/login"
+                        class="rounded-lg bg-black py-2 px-4 text-center font-sans text-xs font-bold uppercase text-white">
                         <span>Login</span>
-                    </button>
+                    </a>
                 @endauth
             </div>
         </div>
