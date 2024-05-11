@@ -29,10 +29,10 @@
     </div>
     <div class="space-x-3">
         <a href="{{ route('blog.show', $data->slug) }}" class="text-blue-500">Read more</a>
-        @if (auth()->user()?->id == $data->user_id)
+        @can('blogManage', $data)
             <a href="{{ route('blog.edit', $data->id) }}" class="text-blue-500">Edit</a>
             <a href="{{ route('blog.destroy', $data->id) }}" class="text-red-500">Delete</a>
-        @endif
+        @endcan
     </div>
     <div class="flex items-center justify-between text-gray-500">
         <div class="flex items-center space-x-2">

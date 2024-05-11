@@ -16,6 +16,12 @@ use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
+    public function index()
+    {
+        $users = User::get();
+        return view('public.users.index',compact('users'));
+    }
+
     public function create(): View
     {
         return view('auth.register');

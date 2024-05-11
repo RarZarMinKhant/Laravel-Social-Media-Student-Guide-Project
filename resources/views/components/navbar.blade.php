@@ -14,7 +14,7 @@
                         </a>
                     </li>
                     <li class="block p-1 font-sans text-sm antialiased font-normal leading-normal text-blue-gray-900">
-                        <a href="#" class="flex items-center">
+                        <a href="{{ route('users.index') }}" class="flex items-center">
                             Friends
                         </a>
                     </li>
@@ -30,10 +30,10 @@
                     <a class="text-black" href="{{ route('blog.create') }}">
                         <button>Create Blog</button>
                     </a>
-                    <a href="{{ route('profile', auth()->user()?->username) }}"><img
+                    {{-- <a href="{{ route('profile', auth()->user()?->username) }}"><img
                             src="https://icon2.cleanpng.com/20180523/wxj/kisspng-businessperson-computer-icons-avatar-clip-art-lattice-5b0508dc2ee812.2252011515270566041921.jpg"
                             class="w-10 h-10 rounded-full">
-                    </a>
+                    </a> --}}
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 

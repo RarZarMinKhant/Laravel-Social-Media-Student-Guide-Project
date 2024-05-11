@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::controller(BlogController::class)->group(function(){
     Route::get('/','index')->name('index');
@@ -14,8 +15,8 @@ Route::controller(BlogController::class)->group(function(){
     Route::get('/blog/destroy/{blog}', 'destroy')->name('blog.destroy');
 });
 
-Route::controller(ProfileController::class)->group(function(){
-    Route::get('/profile/{user:username}','index')->name('profile');
+Route::controller(RegisteredUserController::class)->group(function(){
+    Route::get('/friends','index')->name('users.index')->middleware('auth');
 });
 
 // Route::get('/dashboard', function () {
