@@ -10,21 +10,11 @@ use App\Http\Controllers\Controller;
 class BlogController extends Controller
 {
     function index(){
-        if (request()->search || request()->category) {
-            $blogs = Blog::where(function($query){
-                        $query->where('title', 'LIKE', '%' . request()->search . '%')->orWhere('description', 'LIKE', '%' . request()->search . '%');
-                    })
-                    ->whereHas('category', function ($query) {
-                        $query->where('slug', request()->category);
-                    })
+        $blogs = Blog::search(request(['search','category']))
                 ->with('category')
                 ->orderBy('created_at','desc')
                 ->get();
-                // ->paginate(9)
-                // ->withQueryString();
-        } else {
-            $blogs = Blog::with('category')->orderBy('created_at','desc')->get();
-        }
+
         $categories = Category::get();
         return view('index',compact('blogs','categories'));
     }
