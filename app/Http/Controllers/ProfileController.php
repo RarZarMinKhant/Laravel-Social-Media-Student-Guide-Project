@@ -14,6 +14,7 @@ class ProfileController extends Controller
 {
     function index(User $user)
     {
+        $user = $user->load('blogs');
         return view('profile.index',compact('user'));
     }
 
