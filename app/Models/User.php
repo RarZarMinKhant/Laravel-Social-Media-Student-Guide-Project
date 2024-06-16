@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Blog;
+use App\Models\Reaction;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,5 +41,9 @@ class User extends Authenticatable
 
     public function blogs(){
         return $this->hasMany(Blog::class);
+    }
+
+    public function reactions(){
+        return $this->hasMany(Reaction::class);
     }
 }

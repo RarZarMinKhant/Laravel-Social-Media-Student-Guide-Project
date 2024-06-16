@@ -35,15 +35,25 @@
         @endcan
     </div>
     <div class="flex items-center justify-between text-gray-500">
-        <div class="flex items-center space-x-2">
-            <button class="flex justify-center items-center gap-2 px-2 hover:bg-gray-50 rounded-full p-1">
-                <svg class="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path
-                        d="M12 21.35l-1.45-1.32C6.11 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-4.11 6.86-8.55 11.54L12 21.35z" />
-                </svg>
-                <span>42 Likes</span>
+        <form id="reactionForm-{{ $data->id }}" class="flex items-center space-x-2">
+            <input name="postId" hidden value="{{ $data->id }}">
+            <input name="userId" hidden value="{{ auth()->id() }}">
+            <button type="button" onclick="submitReaction({{ $data->id }})"
+                class="flex justify-center items-center gap-2 px-2 hover:bg-gray-50 rounded-full p-1">
+                @if ($data->alreadyReaction)
+                    <i class="fa-solid fa-heart text-red-500 reactionIcon"></i>
+                @else
+                    <i class="fa-regular fa-heart reactionIcon"></i>
+                @endif
+
+                <span>
+                    <span id="reactionCount">
+                        {{ $data->reactions->count() }}
+                    </span>
+                    Love
+                </span>
             </button>
-        </div>
+        </form>
         <button class="flex justify-center items-center gap-2 px-2 hover:bg-gray-50 rounded-full p-1">
             <svg width="22px" height="22px" viewBox="0 0 24 24" class="w-5 h-5 fill-current"
                 xmlns="http://www.w3.org/2000/svg">
@@ -59,3 +69,31 @@
         </button>
     </div>
 </div>
+<script>
+    function submitReaction(postId) {
+        const formId = 'reactionForm-' + postId;
+        const form = document.getElementById(formId);
+        const formData = new FormData(form);
+        const icon = form.querySelector('.reactionIcon');
+        const currentCountElement = form.querySelector('#reactionCount');
+        let reactionCount = parseInt(currentCountElement.textContent);
+
+        axios.post('/api/toggle-reaction', formData).then(function(response) {
+            if (response.data.message === 'like') {
+                // Change to liked icon
+                icon.classList.remove('fa-regular', 'fa-heart');
+                icon.classList.add('fa-solid', 'fa-heart', 'text-red-500');
+                reactionCount += 1;
+            } else {
+                // Change to unliked icon
+                icon.classList.remove('fa-solid', 'fa-heart', 'text-red-500');
+                icon.classList.add('fa-regular', 'fa-heart');
+                reactionCount -= 1;
+            }
+            currentCountElement.textContent = reactionCount;
+
+        }).catch(function(error) {
+            console.log(error.response.data);
+        });
+    }
+</script>

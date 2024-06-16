@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Reaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,6 +25,23 @@ class Blog extends Model
 
     function category(){
         return $this->belongsTo(Category::class);
+    }
+
+    function reactions(){
+        return $this->hasMany(Reaction::class);
+    }
+
+    public function getAlreadyReactionAttribute()
+    {
+        if (!auth()->check()) {
+            return false;
+        }
+
+        $alreadyReaction = Reaction::where('blog_id', $this->id)
+            ->where('user_id', auth()->id())
+            ->exists();
+
+        return $alreadyReaction;
     }
 
     function scopeSearch($query,$filter){
