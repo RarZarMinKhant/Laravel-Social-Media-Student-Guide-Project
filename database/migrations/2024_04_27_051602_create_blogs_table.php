@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
+            $table->json('images');
             $table->foreignId('category_id');
             $table->longText('description');
             $table->timestamps();

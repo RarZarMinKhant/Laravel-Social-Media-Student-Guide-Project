@@ -25,7 +25,10 @@
     <div class="mb-4">
         <p class="text-gray-800">{{ $data->title }}</p>
         <p class="text-gray-800">{{ $data->description }}</p>
-        {{ $data->category?->name }}
+        <p class="text-gray-800">{{ $data->category?->name }}</p>
+        @if ($data?->image)
+            <img src="/storage/images/{{ $data?->image }}" class="w-40">
+        @endif
     </div>
     <div class="space-x-3">
         <a href="{{ route('blog.show', $data->slug) }}" class="text-blue-500">Read more</a>
